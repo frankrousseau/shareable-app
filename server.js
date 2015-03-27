@@ -131,9 +131,9 @@ app.delete('/api/bookmarks/:id', controllers.bookmarks.delete);
 
 
 // On démarre le serveur et on affiche un message d'information.
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+//
+var port = process.env.PORT || 9125;
+var host = process.env.HOST || '0.0.0.0';
+var server = app.listen(port, host, function () {
   console.log('Example app listening at http://%s:%s', host, port)
 });
-
