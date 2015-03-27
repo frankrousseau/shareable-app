@@ -20,7 +20,7 @@ monapp
 ### Démonisation
 
 
-*Supervisor*
+On utilse Supervisor:
 
 ```
 sudo apt-get install supervisor
@@ -36,3 +36,8 @@ redirect_stderr=true
 user=nonuser
 ```
 
+On met à jour Supervisor :
+
+```
+supervisorctl update
+```
