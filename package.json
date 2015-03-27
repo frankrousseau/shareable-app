@@ -1,0 +1,35 @@
+{
+  "name": "my-bookmarks",
+  "version": "1.0.0",
+  "description": "Example of single-page application that you can easily deploy and share",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cozy-labs/standalone-application"
+  },
+  "keywords": [
+    "zeroconfig",
+    "self-hosting",
+    "single-page",
+    "app"
+  ],
+  "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozycloud.cc/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cozy-labs/standalone-application/issues"
+  },
+  "homepage": "https://github.com/cozy-labs/standalone-application",
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "express-error-handler": "^1.0.1",
+    "method-override": "^2.3.2",
+    "morgan": "^1.5.2",
+    "pouchdb": "^3.3.1",
+    "slug": "^0.8.0",
+    "slugify": "^0.1.1"
+  }
+}
