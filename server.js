@@ -1,22 +1,28 @@
-var express = require('express')
-var PouchDB = require('pouchdb');
+// Dépendances
 var slug = require('slug');
+var express = require('express')
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var PouchDB = require('pouchdb');
 
-var db = PouchDB('bookmarks');
+// On génère la base de données.
+var db = PouchDB('db');
+// On génère le serveur Express.
 var app = express();
 
 
+// Configuration du serveur Express.
 app.use(express.static('client/public'));
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 
+// On définit les contrôleurs.
 var controllers = {
 
+  // L
   base: {
     index: function (req, res) {
       res.send('My Bookmarks API');
@@ -117,12 +123,14 @@ var controllers = {
 };
 
 
+// On associe à chaque contrôleur un chemin.
 app.get('/api', controllers.base.index);
 app.get('/api/bookmarks', controllers.bookmarks.all);
 app.post('/api/bookmarks', controllers.bookmarks.create);
 app.delete('/api/bookmarks/:id', controllers.bookmarks.delete);
 
 
+// On démarre le serveur et on affiche un message d'information.
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
