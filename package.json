@@ -4,11 +4,12 @@
   "description": "Example of single-page application that you can easily deploy and share",
   "main": "index.js",
   "scripts": {
+    "build": "cd client && npm run-script build"
     "test": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cozy-labs/standalone-application"
+    "url": "https://github.com/frankrousseau/shareable-app"
   },
   "keywords": [
     "zeroconfig",
@@ -18,10 +19,6 @@
   ],
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozycloud.cc/)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cozy-labs/standalone-application/issues"
-  },
-  "homepage": "https://github.com/cozy-labs/standalone-application",
   "dependencies": {
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
