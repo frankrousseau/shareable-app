@@ -1,4 +1,5 @@
 // Dépendances
+var path = require('path');
 var slug = require('slug');
 var express = require('express')
 var morgan = require('morgan');
@@ -13,7 +14,7 @@ var app = express();
 
 
 // Configuration du serveur Express.
-app.use(express.static('client/public'));
+app.use(express.static(path.join(__dirname, 'client', 'public')));
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
