@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "node_modules/.bin/watchify src/index.js -o ./public/browser-bundle.js -v -d .",
-    "build": "STATIC_ROOT=./src NODE_ENV=production browserify . | uglifyjs -cm > ./public/browser-bundle.min.js",
+    "build": "NODE_ENV=production browserify . | uglifyjs -cm > ./public/browser-bundle.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cozy Cloud",
