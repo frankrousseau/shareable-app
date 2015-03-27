@@ -1,6 +1,6 @@
 {
   "name": "my-bookmarks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Example of single-page application that you can easily deploy and share",
   "main": "index.js",
   "bin": {
