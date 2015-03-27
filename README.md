@@ -8,7 +8,7 @@ npm publish
 ```
 
 
-### Publication
+### Installation et utilisation
 
 
 ```
