@@ -28,7 +28,6 @@ var data = {
 
   // On supprimme une bookmark. On récree son identifiant à partir du lien.
   deleteBookmark: function(bookmark, callback) {
-    console.log(bookmark);
     request
       .del('/api/bookmarks/' + slug(bookmark.link))
       .end(callback);
