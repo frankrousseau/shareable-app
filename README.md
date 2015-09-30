@@ -1,8 +1,8 @@
 
 
-### Publication
+### Publish
 
-S'inscrire à NPM :
+Sign up to NPM :
 
 ```
 npm set init.author.name "Brent Ertz"
@@ -12,7 +12,7 @@ npm set init.author.url "http://brentertz.com"
 npm adduser
 ```
 
-Publier : 
+Run publication command: 
 
 ```
 npm version patch
@@ -20,8 +20,9 @@ npm publish
 ```
 
 
-### Installation et utilisation
+### Installation and run
 
+Install your app as any global NPM module:
 
 ```
 sudo npm install monapp -g
@@ -29,16 +30,16 @@ monapp
 ```
 
 
-### Démonisation
+### Daemonize
 
 
-On utilse Supervisor:
+You can use supervisor:
 
 ```
 sudo apt-get install supervisor
 ```
 
-Ajouter le fichier `/etc/supervisor/conf.d/monapp.conf` :
+Add file `/etc/supervisor/conf.d/monapp.conf` :
 
 ```
 [program:monapp]
@@ -48,7 +49,7 @@ redirect_stderr=true
 user=nonuser
 ```
 
-On met à jour Supervisor :
+Then restart Supervisor :
 
 ```
 supervisorctl update
