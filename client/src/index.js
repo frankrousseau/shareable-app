@@ -3,10 +3,10 @@ var request = require('superagent');
 var slug = require('slug');
 
 
-// Utilitaires pour requêter notre serveur.
+// Helpers to request the server API.
 var data = {
 
-  // On récupère les bookmarks.
+  // Get all bookmarks stored on the server.
   getBookmarks: function(callback) {
     request
       .get('/api/bookmarks')
@@ -16,7 +16,7 @@ var data = {
       });
   },
 
-  // On crée une bookmark.
+  // Creates a bookmark on server. Title and url are required.
   createBookmark: function(bookmark, callback) {
     request
       .post('/api/bookmarks')
@@ -26,7 +26,8 @@ var data = {
       });
   },
 
-  // On supprimme une bookmark. On récree son identifiant à partir du lien.
+  // Delete a bookmark from the server. 
+  // Build bookmark id from link by slugifying it.
   deleteBookmark: function(bookmark, callback) {
     request
       .del('/api/bookmarks/' + slug(bookmark.link))
@@ -36,7 +37,7 @@ var data = {
 }
 
 
-// C'est le composant principal de l'application.
+// Here we define the main component of the application.
 var App = React.createClass({
   render: function() {
     return (
@@ -49,20 +50,20 @@ var App = React.createClass({
 });
 
 
-
-// Le composant liste de bookmark.
+// The component that describes the bookmark list. It will allow us to manage
+// display of several bookmarks, and creation/deletion of a bookmark.
 var BookmarkList = React.createClass({
 
-  // On définit l'état du composant bookmarks cela est utile pour le rendu
-  // dynamique.
+  // We define here the initial state of the component. Given bookmarks
+  // will become the "state" of the component.
   getInitialState: function() {
     return {bookmarks: this.props.bookmarks};
   },
 
-  // Quand le bouton ajout est cliqué, on récupère les valeurs des
-  // différents champs.
-  // Puis on met à jour la liste des composants. Enfin on provoque un nouveau
-  // rendu en changeant l'état et on envoie une requête de création au serveur.
+  // When the add button is clicked the field values are grabbed (title and
+  // link inputs). Then, we update the bookmark list by adding a new bookmark
+  // to the bookmark list from the state. React will automatically render
+  // the componenent again.
   onAddClicked: function() {
     var bookmarks = this.state.bookmarks;
     var title = this.refs.titleInput.getDOMNode().value;
@@ -71,15 +72,18 @@ var BookmarkList = React.createClass({
     var bookmark = {title: title, link: link};
     bookmarks.push(bookmark);
 
-    // Changement d'état.
+    // Here we modify the state.
     this.setState({bookmarks: bookmarks});
-    // Requête au server.
+    
+    // Here we save the change to the server.
     data.createBookmark(bookmark, function () {});
   },
 
-  // Quand on supprime une ligne, on met à jour la liste des lignes. Puis on
-  // provoque le rendu du composant en changeant l'état. Pour enfin envoyer une
-  // requête de suppression au serveur.
+  // When we delete a line, we update the line list by removing the corresponding
+  // bookmark. Then, React automatically render the component again (and this time
+  // without the removed bookmark).
+  // This function will be given as parameter of the bookmark components. It will
+  // be called when the delete button of the line will be clicked.
   removeLine: function(line) {
     var bookmarks = this.state.bookmarks;
     var index = 0;
@@ -89,18 +93,22 @@ var BookmarkList = React.createClass({
     if (index < bookmarks.length) {
       var bookmark = bookmarks.splice(index, 1)[0];
 
-      // Changement d'état.
+      // Here we modify the state.
       this.setState({ bookmarks: bookmarks });
-      // Requête au server.
+      
+      // Here we save the change to the server.
       data.deleteBookmark(bookmark, function () {});
     }
   },
 
-  // Rendu du composant.
+  // Component rendering. This time the rendering is a little bit
+  // different. It requires first that we define the list of Bookmark
+  // components to render from the bookmark list stored in the component
+  // state. Then with it we can build the current component JSX template.
   render: function() {
     var removeLine = this.removeLine;
 
-    // Ici on prépare la liste à partir des proprités.
+    // Here we build the bookmark component list.
     var bookmarks = this.state.bookmarks.map(function(bookmark) {
       return (
         <Bookmark title={bookmark.title} link={bookmark.link}
@@ -108,6 +116,8 @@ var BookmarkList = React.createClass({
         </Bookmark>
       );
     });
+    
+    // Full render.
     return (
       <div>
         <div>
@@ -130,16 +140,17 @@ var BookmarkList = React.createClass({
 });
 
 
-// Le composant qui va définir une ligne de bookmark.
+// A simple component to describe our bookmark. 
 var Bookmark = React.createClass({
 
-  // On supprime la ligne courante du parent quand le bouton supprimé est
-  // cliqué.
+  // When the delete button is clicked, it calls the removeLine
+  // function given in parameter. In our case, it's the bookmark 
+  // list component delete function that will be called.
   onDeleteClicked: function() {
     this.props.removeLine(this.props);
   },
 
-  // Le rendu se fait grâce à un format de template appelé JSX.
+  // Rendering of the component via a JSX template. 
   render: function() {
     return (
       <div>
@@ -156,7 +167,8 @@ var Bookmark = React.createClass({
 });
 
 
-// Ici on démarre !
+// That's it! Let's start the application. First we load the 
+// bookmarks, then we give the result to React so it can render our app!
 data.getBookmarks(function(err, bookmarks) {
   React.render(<App bookmarks={bookmarks.rows}></App>,
                document.getElementById('app'));
