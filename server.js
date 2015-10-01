@@ -1,4 +1,4 @@
-// Dépendances
+// Dependencies
 var path = require('path');
 var slug = require('slug');
 var express = require('express')
@@ -7,31 +7,36 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var PouchDB = require('pouchdb');
 
-// On génère la base de données.
+// Database 
 var db = PouchDB('db');
-// On génère le serveur Express.
+// API server
 var app = express();
 
 
-// Configuration du serveur Express.
+// Express server configuration: handle static files, ensure
+// that HTTP methods are properly handled, considered that body
+// is always JSON and turn it into JS objects and logging.
 app.use(express.static(path.join(__dirname, 'client', 'public')));
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 
-// On définit les contrôleurs.
+// Here we define the controllers used by the Express server.
 var controllers = {
 
-  // L
+  // Load the application entry point.
   base: {
     index: function (req, res) {
       res.send('My Bookmarks API');
     }
   },
 
+  // Operation on bookmarks.
   bookmarks: {
 
+    // Query the database to return all the bookmarks stored in 
+    // in the database.
     all: function (req, res) {
       var allBookmarks = function (doc) {
         if (doc.type === 'bookmark') {
@@ -55,6 +60,7 @@ var controllers = {
       });
     },
 
+    // Create a bookmark from sent body in the database.
     create: function (req, res) {
       var bookmark = req.body;
 
@@ -93,6 +99,7 @@ var controllers = {
       }
     },
 
+    // Delete a bookmark with given ID.
     delete: function (req, res) {
       var id = req.params.id;
       db.get(id, function (err, doc) {
@@ -124,15 +131,14 @@ var controllers = {
 };
 
 
-// On associe à chaque contrôleur un chemin.
+// Here we link routes and method to controllers.
 app.get('/api', controllers.base.index);
 app.get('/api/bookmarks', controllers.bookmarks.all);
 app.post('/api/bookmarks', controllers.bookmarks.create);
 app.delete('/api/bookmarks/:id', controllers.bookmarks.delete);
 
 
-// On démarre le serveur et on affiche un message d'information.
-//
+// Run the server with proper option (port and IP address binding).
 var port = process.env.PORT || 9125;
 var host = process.env.HOST || '0.0.0.0';
 var server = app.listen(port, host, function () {
