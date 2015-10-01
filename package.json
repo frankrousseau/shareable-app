@@ -7,8 +7,7 @@
     "my-bookmarks": "bin/my-bookmarks"
   },
   "scripts": {
-    "build": "cd client && npm run-script build",
-    "test": "npm test"
+    "build": "cd client && npm run-script build"
   },
   "repository": {
     "type": "git",
@@ -23,14 +22,14 @@
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozycloud.cc/)",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.12.2",
-    "express": "^4.12.3",
-    "express-error-handler": "^1.0.1",
-    "method-override": "^2.3.2",
-    "morgan": "^1.5.2",
-    "path-extra": "^1.0.2",
-    "pouchdb": "^3.3.1",
-    "slug": "^0.8.0",
-    "slugify": "^0.1.1"
+    "body-parser": "1.12.2",
+    "express": "4.12.3",
+    "express-error-handler": "1.0.1",
+    "method-override": "2.3.2",
+    "morgan": "1.5.2",
+    "path-extra": "1.0.2",
+    "pouchdb": "3.3.1",
+    "slug": "0.8.0",
+    "slugify": "0.1.1"
   }
 }
