@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-// Dépendances.
+// Dependencies.
 var path = require('path-extra');
 var fs = require('fs');
 
-// Répertoire ou la base stockera ses données.
+// Folder where the database will be stored.
 var defaultDir = path.join(path.homedir(), '.my-bookmarks');
 if(!fs.existsSync(defaultDir)) {
   fs.mkdirSync(defaultDir);
 }
 process.chdir(defaultDir);
 
-// On démarre le serveur.
+// Run the server
 require(path.join(__dirname, '..', 'server'));
