@@ -64,7 +64,6 @@ var controllers = {
     create: function (req, res) {
       var bookmark = req.body;
 
-      console.log(bookmark);
       if (bookmark === undefined || bookmark.link === undefined) {
         res.status(400).send({msg: 'Bookmark malformed.'});
 
